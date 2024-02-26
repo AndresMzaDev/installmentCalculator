@@ -1,7 +1,8 @@
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
+import Instructions from "./components/Instructions.vue";
 
-function calculate(){
+function calculate() {
   console.log("Se esta calculando");
 }
 </script>
@@ -19,35 +20,9 @@ function calculate(){
           que esta información es confidencial.
         </p>
         <div class="mt-12">
-          <h2 class="text-lg font-extrabold">Instrucciones</h2>
-          <div class="mt-3 flex justify-between ">
-            <div class="flex flex-col justify-center items-center w-15 ">
-              <div
-                class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0"
-              >
-                1
-              </div>
-              <small>Ingresa los datos</small>
-            </div>
-            <div class="flex flex-col justify-center items-center w-15">
-              <div
-                class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0"
-              >
-                2
-              </div>
-              <small>Calcula tús cuotas</small>
-            </div>
-            <div class="flex flex-col justify-center items-center w-15 ">
-              <div
-                class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0"
-              >
-                3
-              </div>
-              <small>Muestra resultados</small>
-            </div>
-          </div>
+          <Instructions/>
         </div>
-        <div class="mt-12">
+        <!-- <div class="mt-12">
           <h2 class="text-lg font-extrabold">Socials</h2>
           <ul class="flex mt-3 space-x-4">
             <li
@@ -104,45 +79,51 @@ function calculate(){
               </a>
             </li>
           </ul>
-        </div>
+        </div> -->
       </div>
-
-      <form
-        method="post"
-        class="ml-auo space-y-4"
-      >
-        <input
-          type="text"
-          name="name"
-          placeholder="Monto del préstamo"
-          class="w-full rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
-        />
-        <input
-          type="number"
-          name="email"
-          placeholder="Tasa  de intéres anual %"
-          class="w-full rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
-        />
-        <input
-          type="number"
-          placeholder="Plazo de préstamo"
-          name="subject"
-          class="w-full rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
-        />
+      <div>
+        <div class="flex justify-end mb-5">
+          <img class="" src="../src/assets/log3.svg" alt="" />
+        </div>
        
-        <button
-          type="button"
-          class="text-white bg-[#007bff] hover:bg-blue-600 font-semibold rounded-md text-sm px-4 py-2.5 w-full"
-          @click="calculate"
-        >
-          Calcular
-        </button>
-      </form>
+
+        <form method="post" class="ml-auo space-y-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Monto del préstamo"
+            class="w-full rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
+          />
+          <input
+            type="number"
+            name="email"
+            placeholder="Tasa  de intéres anual %"
+            class="w-full rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
+          />
+          <input
+            type="number"
+            placeholder="Plazo de préstamo"
+            name="subject"
+            class="w-full rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
+          />
+
+          <button
+            type="button"
+            class="text-white bg-[#007bff] hover:bg-blue-600 font-semibold rounded-md text-sm px-4 py-2.5 w-full"
+            @click="calculate"
+          >
+            Calcular
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+img {
+  width: 5rem;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
