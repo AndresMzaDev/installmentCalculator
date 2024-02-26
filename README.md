@@ -12,7 +12,7 @@ Esta es una app sencilla, para calcular la cuota mensual en prestamos, solo ingr
 
 ## Tech Stack
 
-**Client:** <a href="https://vuejs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original-wordmark.svg" alt="vuejs" width="40" height="40"/> </a> , Tailwind 
+**Client:** <a href="https://vuejs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original-wordmark.svg" alt="vuejs" width="40" height="40"/> </a> ,  <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="40" height="40"/> </a>  
 
 
 
@@ -23,13 +23,10 @@ Esta es una app sencilla, para calcular la cuota mensual en prestamos, solo ingr
 
 ## FAQ
 
-#### Will Users be saved in the database?
-
-These are not stored in a class but a user type structure
 
 #### What type of architecture is it made with?
 
-It was about implementing the MVVM architecture, for the management of screens and logic.
+Se implementa una arquitectura MVC, donde el modulo controlador del frontend esta limitado por VUE3
 
 
 ## Documentation
@@ -38,35 +35,57 @@ It was about implementing the MVVM architecture, for the management of screens a
 
 
 ## Usage/Examples
-A data store was simulated, where there is user validation and adding a new user.
+el backend esta hecho en php se espera un metodo POST que recibe 3 datos(Saldo de prestamo, Tasa de interes y Tiempo del prestamo), este metodo procede a tomar esos datos y procesarlos con la formula de calculo de cuota de prestamo. 
+
+[![Captura-de-pantalla-2024-02-26-a-la-s-08-38-12.png](https://i.postimg.cc/zvTNdwJC/Captura-de-pantalla-2024-02-26-a-la-s-08-38-12.png)](https://postimg.cc/Wqpxzkqz)
 
 
-```swift
-class UserStore: ObservableObject {
-    @Published var users: [userStruct] = [userStruct(name: "Andres Neptaly Meza", age: 30, numberPhone: 99999999999, gender: "M", email: "admin@root.com", password: "Admin123.")]
-    
-    func addUser(name: String, age: Int, numberPhone: Int, gender: String, email: String, password: String ){
-        let newUser =  userStruct(name: name, age: age, numberPhone: numberPhone, gender: gender, email: email, password: password)
-        users.append(newUser)
+```php
+<?php
+header("Access-Control-Allow-Origin: *");
+header('Content-Type: application/json');
 
-        print("usuarios \(getUser())")
-    }
-    
-    func validateEmail(_ email: String) -> Bool {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  
+    // verificando datos recibidos
+
+    if (isset($_POST['amount']) && isset($_POST['interestRate']) && isset($_POST['paymentTime'])) {
+        $amount = $_POST['amount'];
+        $interestRate = $_POST['interestRate'];
+        $paymentTime = $_POST['paymentTime'];
+        // sacamos el porcentaje por mes
+        $numberPorcen = $interestRate/100;
+        $interestMonth = ($numberPorcen/12);
         
-        if let userFound = users.first(where: { $0.email == email }) {
-            print("Persona encontrada: \(userFound)")
-            return true
+        if (is_numeric($amount) && is_numeric($interestRate) && is_numeric($paymentTime)) {
+            $result = ($amount * $interestMonth * pow((1 + $interestMonth), $paymentTime))/(pow((1+$interestMonth),$paymentTime)-1) ;
+            // $suma = $amount + $interestRate + $paymentTime;
+            
+            // Devolvemos el producto como respuesta
+            echo json_encode(array('result' =>  round( $result, 2) ));
         } else {
-            print("No se encontró ninguna persona con edad igual a 30")
-            return false
-          
+            echo json_encode(array('error' => 'Los datos deben ser numéricos'));
         }
+    } else {
+        echo json_encode(array('error' => 'Se esperaban tres datos'));
     }
-    
-    func getUser() -> [userStruct] {
-        return users
-    }
+} else {
+    echo json_encode(array('error' => 'Se esperaba una solicitud POST'));
 }
+?>
+
 ```
+
+
+## Installation
+
+Install installmentCalculator with npm
+
+```bash
+  npm install installmentCalculator
+  cd installmentCalculator
+  npm run dev
+```
+se utiliza en el frontend vite, vue3 y tailwind.
+en el backend se usa PHP y Mamp para correr el servidor 
 
