@@ -1,6 +1,33 @@
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
+import { reactive } from "vue";
 import Instructions from "./components/Instructions.vue";
+// libreria de formato numerico
+import { directive as VNumber } from "@coders-tm/vue-number-format";
+
+const directives = {
+  number: VNumber,
+};
+
+const amount = {
+  decimal: ".",
+  separator: ",",
+  prefix: "L ",
+  precision: 2,
+  masked: false,
+};
+const rate = {
+  decimal: ".",
+  separator: ",",
+  prefix: "% ",
+  precision: 2,
+  masked: false,
+};
+
+const form = reactive({
+  amount: null,
+  interestRate: null,
+  paymentTime: null,
+});
 
 function calculate() {
   console.log("Se esta calculando");
@@ -20,7 +47,7 @@ function calculate() {
           que esta información es confidencial.
         </p>
         <div class="mt-12">
-          <Instructions/>
+          <Instructions />
         </div>
         <!-- <div class="mt-12">
           <h2 class="text-lg font-extrabold">Socials</h2>
@@ -85,27 +112,50 @@ function calculate() {
         <div class="flex justify-end mb-5">
           <img class="" src="../src/assets/log3.svg" alt="" />
         </div>
-       
-
         <form method="post" class="ml-auo space-y-4">
+          <!-- <div><vue-number v-model="form.amount" v-bind="number"></vue-number> {{form.amount}}</div> -->
+          <!-- <vue-number v-bind="number"> -->
+
           <input
-            type="text"
-            name="name"
+            v-model.lazy="form.amount"
+            v-number="amount"
             placeholder="Monto del préstamo"
-            class="w-full rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
+            class="w-full mt-1 rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
           />
+          <!-- </vue-number> -->
           <input
-            type="number"
-            name="email"
+            v-model.lazy="form.interestRate"
+            v-number="rate"
             placeholder="Tasa  de intéres anual %"
             class="w-full rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
           />
           <input
             type="number"
-            placeholder="Plazo de préstamo"
-            name="subject"
+            placeholder="Plazo de préstamo (meses)"
             class="w-full rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
           />
+
+          <div
+            class="flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700"
+            role="alert"
+          >
+            <svg
+              class="w-5 h-5 inline mr-3"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <div>
+              <span class="font-medium">Error!</span>
+              <div>Ingrese todos los datos solicitados.</div>
+            </div>
+          </div>
 
           <button
             type="button"
