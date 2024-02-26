@@ -39,6 +39,7 @@ el backend esta hecho en php se espera un metodo POST que recibe 3 datos(Saldo d
 
 [![Captura-de-pantalla-2024-02-26-a-la-s-08-38-12.png](https://i.postimg.cc/zvTNdwJC/Captura-de-pantalla-2024-02-26-a-la-s-08-38-12.png)](https://postimg.cc/Wqpxzkqz)
 
+donde P es la cantidad del prestamo, r es la tasa de interés mensual (tasa anual dividida por 12 y dividida por 100 para convertirla en decimal) y n es la cantidad de mese
 
 ```php
 <?php
@@ -88,4 +89,3 @@ Install installmentCalculator with npm
 ```
 se utiliza en el frontend vite, vue3 y tailwind.
 en el backend se usa PHP y Mamp para correr el servidor 
-
