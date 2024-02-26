@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@coders-tm/vue-number-format": "^3.34.1",
-    "vue": "^3.4.19"
+    "axios": "^1.6.7",
+    "vue": "^3.4.19",
+    "vue-axios": "^3.5.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
